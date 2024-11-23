@@ -1,5 +1,5 @@
 function iniciarAplicacion() {
-    alert("Bienvenido a EcoMega: Aprende sobre el cambio climático y cómo reducir tu impacto en el medio ambiente.");
+    alert("Bienvenido a EcoTracker: Aprende sobre el cambio climático y cómo reducir tu impacto en el medio ambiente.");
 
     let Menu = true;
     let reporte = {
@@ -22,7 +22,7 @@ function iniciarAplicacion() {
                 moduloIntroduccion();
                 break;
             case "2":
-                reporte.consejos = []; 
+                reporte.consejos = [];
                 reporte.huellaCarbono = moduloCalculadoraHuella(reporte);
                 break;
             case "3":
@@ -32,7 +32,7 @@ function iniciarAplicacion() {
                 mostrarReporteFinal(reporte);
                 break;
             case "5":
-                alert("Gracias por usar EcoMega. ¡Hasta luego!");
+                alert("Gracias por usar EcoTracker. ¡Hasta luego!");
                 Menu = false;
                 break;
             default:
@@ -91,7 +91,12 @@ function moduloConsejos(transporte, carne, reporte) {
             "- Reducir el consumo de carne roja a una vez por semana puede disminuir tu huella de carbono en 0.5 toneladas al año.";
         reporte.consejos.push("Reduce el uso de transporte privado.");
         reporte.consejos.push("Disminuye el consumo de carne roja.");
-    } else if (transporte === "semanal" && !carne) {
+    } else if (transporte === "diario" && !carne) {
+        mensaje =
+            "- Optar por transporte público o bicicleta puede reducir tu impacto ambiental significativamente."
+        reporte.consejos.push("Reduce el uso de transporte privado.");
+    }
+    else if (transporte === "semanal" && !carne) {
         mensaje = "Optar por transporte público o bicicleta puede reducir tu impacto ambiental significativamente.";
         reporte.consejos.push("Usa transporte público.");
     } else if (transporte === "nunca" && carne) {
@@ -119,7 +124,7 @@ function mostrarReporteFinal(reporte) {
     let resumen = "=== Resumen Final ===\n";
     resumen += `Huella de Carbono Estimada: ${reporte.huellaCarbono.toFixed(1)} toneladas de CO₂ al año.\n`;
     resumen += "Consejos Personalizados:\n";
-    
+
     if (reporte.consejos.length > 0) {
         resumen += reporte.consejos.join("\n") + "\n";
     } else {
