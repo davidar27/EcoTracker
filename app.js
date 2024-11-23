@@ -1,4 +1,4 @@
-let huellaTotal = 0;
+let huellaTotal = 0; 
 
 function iniciarAplicacion() {
     alert("Bienvenido a EcoTracker: Aprende sobre el cambio climático y cómo reducir tu impacto en el medio ambiente.");
@@ -13,7 +13,6 @@ function iniciarAplicacion() {
             "3. Consejos Prácticos para Reducir tu Impacto\n" +
             "4. Reporte final\n" +
             "5. Salir"
-
         );
 
         switch (opciones) {
@@ -27,14 +26,14 @@ function iniciarAplicacion() {
                 obtenerDatosConsejos();
                 break;
             case "4":
-                reporteFinal(); // No necesitas pasar un mensaje aquí
+                reporteFinal();
                 break;
             case "5":
                 alert("Gracias por usar EcoTracker. ¡Hasta luego!");
                 Menu = false;
                 break;
             default:
-                alert("Opción no válida. Por favor, selecciona un número del 1 al 4.");
+                alert("Opción no válida. Por favor, selecciona un número del 1 al 5.");
                 break;
         }
     }
@@ -74,7 +73,7 @@ function moduloCalculadoraHuella() {
         huella += 0.5;
     }
 
-    huellaTotal += huella;
+    huellaTotal = huella; 
 
     alert(`Tu huella de carbono estimada es de ${huella.toFixed(2)} toneladas de CO₂ al año.\nLa media global es de 4 toneladas.`);
     moduloConsejos(transporte, carne);
