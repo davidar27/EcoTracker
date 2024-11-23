@@ -1,5 +1,5 @@
 function iniciarAplicacion() {
-    alert("Bienvenido a EcoTracker: Aprende sobre el cambio climático y cómo reducir tu impacto en el medio ambiente.");
+    alert("Bienvenido a EcoMega: Aprende sobre el cambio climático y cómo reducir tu impacto en el medio ambiente.");
 
     let Menu = true;
     let reporte = {
@@ -32,7 +32,7 @@ function iniciarAplicacion() {
                 mostrarReporteFinal(reporte);
                 break;
             case "5":
-                alert("Gracias por usar EcoTracker. ¡Hasta luego!");
+                alert("Gracias por usar EcoMega. ¡Hasta luego!");
                 Menu = false;
                 break;
             default:
