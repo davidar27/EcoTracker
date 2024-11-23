@@ -1,8 +1,7 @@
 function iniciarAplicacion() {
     alert("Bienvenido a EcoTracker: Aprende sobre el cambio climático y cómo reducir tu impacto en el medio ambiente.");
-}
 
-let Menu = true;
+    let Menu = true;
 
 while (Menu) {
     const opciones = prompt(
@@ -14,16 +13,16 @@ while (Menu) {
     );
 
     switch (opciones) {
-        case 1:
+        case "1":
             moduloIntroduccion();
             break;
-        case 2:
+        case "2":
             moduloCalculadoraHuella();
             break;
-        case 3:
+        case "3":
             moduloConsejos();
             break
-        case 4:
+        case "4":
             alert("Gracias por usar EcoTracker. ¡Hasta luego!");
             Menu = false;
             break;
@@ -32,6 +31,9 @@ while (Menu) {
             break;
     }
 }
+}
+
+
 
 function moduloIntroduccion() {
     alert(
@@ -43,3 +45,37 @@ function moduloIntroduccion() {
         "- Desperdicio y residuos: La descomposición de residuos orgánicos en vertederos genera metano."
     );
 }
+
+
+function moduloCalculadoraHuella() {
+
+    const transporte = prompt("¿Con qué frecuencia usas transporte privado? (Responde: diario, semanal, nunca)");
+    const carne = confirm("¿Consumes carne roja más de 3 veces por semana? Responde: (Aceptar= si/ Cancelar= no)");
+
+    let huella = 0;
+
+    if (transporte === "diario") {
+        huella += 5;
+    } else if (transporte === "semanal") {
+        huella += 2;
+    } else if (transporte === "nunca") {
+        huella += 0.5;
+    } else {
+        alert("Respuesta no válida para transporte. Asignando valor por defecto: 1 tonelada.");
+        huellaCarbono += 1;
+    }
+
+
+    if (carne) {
+        huella += 2;
+    } else {
+        huella += 0.5;
+    }
+
+    
+    alert(`Tu huella de carbono estimada es de ${huella.toFixed()} toneladas de CO₂ al año.\nLa media global es de 4 toneladas.`)
+    
+    return huella
+}
+
+iniciarAplicacion();
