@@ -1,9 +1,11 @@
-let huellaTotal = 0; 
-
 function iniciarAplicacion() {
     alert("Bienvenido a EcoTracker: Aprende sobre el cambio climático y cómo reducir tu impacto en el medio ambiente.");
 
     let Menu = true;
+    let reporte = {
+        huellaCarbono: 0,
+        consejos: [],
+    };
 
     while (Menu) {
         const opciones = prompt(
@@ -11,7 +13,7 @@ function iniciarAplicacion() {
             "1. Introducción al Cambio Climático\n" +
             "2. Huella de Carbono Personal\n" +
             "3. Consejos Prácticos para Reducir tu Impacto\n" +
-            "4. Reporte final\n" +
+            "4. Reporte Final\n" +
             "5. Salir"
         );
 
@@ -20,13 +22,13 @@ function iniciarAplicacion() {
                 moduloIntroduccion();
                 break;
             case "2":
-                moduloCalculadoraHuella();
+                reporte.huellaCarbono = moduloCalculadoraHuella(reporte);
                 break;
             case "3":
                 obtenerDatosConsejos();
                 break;
             case "4":
-                reporteFinal();
+                mostrarReporteFinal(reporte);
                 break;
             case "5":
                 alert("Gracias por usar EcoTracker. ¡Hasta luego!");
@@ -50,7 +52,7 @@ function moduloIntroduccion() {
     );
 }
 
-function moduloCalculadoraHuella() {
+function moduloCalculadoraHuella(reporte) {
     const transporte = prompt("¿Con qué frecuencia usas transporte privado? (Responde: diario, semanal, nunca)").toLowerCase();
     const carne = confirm("¿Consumes carne roja más de 3 veces por semana? (Aceptar: sí / Cancelar: no)");
 
@@ -73,25 +75,29 @@ function moduloCalculadoraHuella() {
         huella += 0.5;
     }
 
-    huellaTotal = huella; 
-
     alert(`Tu huella de carbono estimada es de ${huella.toFixed(2)} toneladas de CO₂ al año.\nLa media global es de 4 toneladas.`);
-    moduloConsejos(transporte, carne);
+
+    moduloConsejos(transporte, carne, reporte);
+    return huella;
 }
 
-function moduloConsejos(transporte, carne) {
+function moduloConsejos(transporte, carne, reporte) {
     let mensaje = "";
 
     if ((transporte === "diario" || transporte === "semanal") && carne) {
         mensaje =
             "- Optar por transporte público o bicicleta puede reducir tu impacto ambiental significativamente.\n" +
             "- Reducir el consumo de carne roja a una vez por semana puede disminuir tu huella de carbono en 0.5 toneladas al año.";
+        reporte.consejos.push("Reduce el uso de transporte privado.");
+        reporte.consejos.push("Disminuye el consumo de carne roja.");
     } else if (transporte === "semanal" && !carne) {
         mensaje = "Optar por transporte público o bicicleta puede reducir tu impacto ambiental significativamente.";
+        reporte.consejos.push("Usa transporte público.");
     } else if (transporte === "nunca" && carne) {
         mensaje = "- Reducir el consumo de carne roja a una vez por semana puede disminuir tu huella de carbono en 0.5 toneladas al año.";
+        reporte.consejos.push("Reduce el consumo de carne roja.");
     } else if (transporte === "nunca" && !carne) {
-        mensaje = "No necesitas consejos, gracias por ayudar a reducir el cambio climático.";
+        mensaje = "¡Felicidades! Ya tienes un impacto ambiental bajo. Gracias por ayudar al medio ambiente.";
     }
 
     alert(mensaje);
@@ -108,20 +114,12 @@ function obtenerDatosConsejos() {
     );
 }
 
-function reporteFinal() {
-    let mensaje = "";
-
-    if (huellaTotal <= 4) {
-        mensaje = "¡Excelente! Tienes un impacto ambiental bajo.";
-    } else if (huellaTotal <= 8) {
-        mensaje = "Tu huella de carbono está en un nivel medio. Considera algunas acciones para reducirla.";
-    } else {
-        mensaje = "Tu huella de carbono es alta. Se recomienda tomar medidas inmediatas para reducirla.";
-    }
-
-    alert("Resumen Final:\n" +
-        `■ Huella de carbono: ${huellaTotal.toFixed(2)} toneladas de CO₂ al año.\n` +
-        `■ Recomendación: ${mensaje}`);
+function mostrarReporteFinal(reporte) {
+    let resumen = "=== Resumen Final ===\n";
+    resumen += `Huella de Carbono Estimada: ${reporte.huellaCarbono.toFixed(1)} toneladas de CO₂ al año.\n`;
+    resumen += "Consejos Personalizados:\n";
+    
+    alert(resumen);
 }
 
 iniciarAplicacion();
